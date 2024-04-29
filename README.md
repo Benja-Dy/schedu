@@ -2,15 +2,10 @@
 
 A social planning application.
 
-## Getting Started
+## Project Details
 
-This project is a starting point for a Flutter application.
+The core of the application is inside the lib folder;
+Divided into subfolders depending on what on whether it is a class file or a screen
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project is also dependent on a firebase database/authentication:
+https://console.firebase.google.com/u/0/project/schedu-4df0e/overview
