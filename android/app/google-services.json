@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "944043327797",
+    "project_id": "schedu-4df0e",
+    "storage_bucket": "schedu-4df0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944043327797:android:60bdc197002b223d630c7c",
+        "android_client_info": {
+          "package_name": "com.benjadinh.schedu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbnh9osh2-ISHefyeEqvuVujQqNKDGNuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
