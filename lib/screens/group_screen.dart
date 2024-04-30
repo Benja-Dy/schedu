@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../screens/group_event_screen.dart';
-import '../screens/event_details_screen.dart'; // Import the EventDetailsScreen
+import '../screens/event_details_screen.dart';
+import '../screens/edit_group_screen.dart';
 
 class GroupScreen extends StatelessWidget {
   final String groupId;
@@ -122,6 +123,7 @@ class GroupScreen extends StatelessWidget {
 
         final groupData = snapshot.data!.data() as Map<String, dynamic>;
         final groupName = groupData['name'];
+        print(groupData['events']);
 
         return Scaffold(
           appBar: AppBar(
@@ -140,11 +142,11 @@ class GroupScreen extends StatelessWidget {
                           future: getUsersInGroup(),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
-                              return CircularProgressIndicator();
+                              return const CircularProgressIndicator();
                             } else if (snapshot.hasError) {
                               return Text('Error: ${snapshot.error}');
                             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                              return Text('No users in the group');
+                              return const Text('No users in the group');
                             } else {
                               return Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -155,9 +157,9 @@ class GroupScreen extends StatelessWidget {
                                     future: FirebaseFirestore.instance.collection('users').doc(userId).get(),
                                     builder: (context, userSnapshot) {
                                       if (userSnapshot.connectionState == ConnectionState.waiting) {
-                                        return CircularProgressIndicator();
+                                        return const CircularProgressIndicator();
                                       } else if (userSnapshot.hasError || !userSnapshot.hasData) {
-                                        return SizedBox(); // Handle error or no data
+                                        return const SizedBox(); // Handle error or no data
                                       } else {
                                         final userData = userSnapshot.data!.data() as Map<String, dynamic>;
                                         final username = userData['username'];
@@ -175,11 +177,21 @@ class GroupScreen extends StatelessWidget {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text('Close'),
+                            child: const Text('Close'),
                           ),
                         ],
                       );
                     },
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.edit),
+                onPressed: () {
+                  // Navigate to the screen to edit group details
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditGroupScreen(groupId: groupId)),
                   );
                 },
               ),
@@ -205,12 +217,13 @@ class GroupScreen extends StatelessWidget {
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (BuildContext context, int index) {
                         final eventData = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+
                         return GestureDetector(
                           onTap: () {
                             // Navigate to event details screen
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => EventDetailsScreen(data: eventData)),
+                              MaterialPageRoute(builder: (context) => EventDetailsScreen(data: eventData, groupEvents: groupData['events'])),
                             );
                           },
                           child: ListTile(
@@ -233,6 +246,8 @@ class GroupScreen extends StatelessWidget {
                   _showInviteUserDialog(context);
                 },
                 tooltip: 'Invite Users',
+                heroTag: 'inviteButton',
+                backgroundColor: Colors.teal[200],
                 child: const Icon(Icons.person_add),
               ),
               const SizedBox(width: 16),
@@ -244,6 +259,7 @@ class GroupScreen extends StatelessWidget {
                   );
                 },
                 tooltip: 'Create Event',
+                backgroundColor: Colors.teal[200],
                 child: const Icon(Icons.add),
               ),
             ],

@@ -60,11 +60,19 @@ class LoginScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const HomePage(title: 'Schedu')),
                   );
                 } on FirebaseAuthException catch (e) {
+                  String errorMessage = 'Username/Password not found';
+
                   if (e.code == 'user-not-found') {
-                    print('No user found for that email.');
+                    errorMessage = 'No user found for that email.';
                   } else if (e.code == 'wrong-password') {
-                    print('Wrong password provided for that user.');
+                    errorMessage = 'Wrong password provided for that user.';
                   }
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(errorMessage),
+                    ),
+                  );
                 } catch (e) {
                   print(e);
                 }

@@ -89,7 +89,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                     if (_imageUrl.isNotEmpty)
                       Image.network(_imageUrl, height: 50, width: 50),
                   ],
-                ),
+            ),
 
                 Align(
                   alignment: Alignment.bottomCenter,

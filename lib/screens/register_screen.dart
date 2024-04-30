@@ -91,11 +91,19 @@ class CreateAccountScreen extends StatelessWidget {
                     );
                   }
                 } on FirebaseAuthException catch (e) {
+                  String errorMessage = 'An error occurred.';
+
                   if (e.code == 'weak-password') {
-                    print('The password provided is too weak.');
+                    errorMessage = 'The password provided is too weak.';
                   } else if (e.code == 'email-already-in-use') {
-                    print('The account already exists for that email.');
+                    errorMessage = 'The account already exists for that email.';
                   }
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(errorMessage),
+                    ),
+                  );
                 } catch (e) {
                   print(e);
                 }

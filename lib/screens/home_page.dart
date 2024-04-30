@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:schedu/screens/profile_screen.dart';
 import '../screens/create_group_screen.dart';
-import '../screens/add_event_screen.dart';
 import '../screens/event_details_screen.dart';
 import '../screens/group_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../screens/invite_screen.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:intl/intl.dart';
 
 
@@ -108,14 +106,14 @@ class _HomePageState extends State<HomePage> {
                 return ListView(
                   padding: EdgeInsets.zero,
                   children: <Widget>[
-                    const DrawerHeader(
+                    DrawerHeader(
                       decoration: BoxDecoration(
-                        color: Colors.blueGrey,
+                        color: Colors.teal[200],
                       ),
-                      child: Text(
+                      child: const Text(
                         'Groups',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 24,
                         ),
                       ),
